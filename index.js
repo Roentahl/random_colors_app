@@ -27,10 +27,28 @@ function setRandomColors() {
   });
 };
 
+// changing color of column elements depending on the column color
 function setElementColor(element, color) {
   const colorBrightness = chroma(color).luminance();
 
   element.style.color = colorBrightness > 0.5 ? 'black' : 'white';
-}
+};
+
+// refresh colors by space
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') {
+    setRandomColors();
+  }
+});
+
+// change icon by click
+document.addEventListener('click', (e) => {
+  const target = e.target;
+  if (target.classList.contains('col__btn') || target.classList.contains('fa-solid')) {
+    const el = target.tagName.toLowerCase() === 'i' ? target : target.children[0];
+    el.classList.toggle('fa-lock-open');
+    el.classList.toggle('fa-lock');
+  };
+});
 
 setRandomColors();
