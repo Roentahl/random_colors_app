@@ -19,3 +19,29 @@ body {
   border: 1px solid #000;
   background-color: #ccc;
 }
+
+.col__title {
+  padding: 10px 15px;
+  border-radius: 10px;
+  transition: background-color .3s ease-out;
+}
+
+.col__title:hover {
+  background-color: rgba(0,0,0, .1);
+  cursor: pointer;
+}
+
+.col__btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  font-size: 1.5rem;
+  color: #000;
+  transition: background-color .3s ease-out;
+}
+
+.col__btn:hover {
+  background-color: rgba(0,0,0, .1);
+  cursor: pointer;
+}
