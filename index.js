@@ -10,18 +10,30 @@ function generateColor() {
     color += hexCodes[Math.floor(Math.random() * hexCodes.length)];
   };
 
-  return `#${color}`;
+  return `#${color.toLowerCase()}`;
 };
 
-function setRandomColors() {
-  cols.forEach(col => {
+function setRandomColors(isInitial) {
+  const colors = isInitial ? getColorsFromHash() : [];
+
+  cols.forEach((col, index) => {
     const isLocked = col.querySelector('i').classList.contains('fa-lock');
     const colTitle = col.querySelector('.col__title');
     const colBtn = col.querySelector('.col__btn');
-    const color = generateColor();
 
     if (isLocked) {
+      colors.push(colTitle.textContent);
       return
+    };
+
+    const color = isInitial
+      ? colors[index]
+        ? colors[index]
+        : generateColor()
+      : generateColor();
+
+    if (!isInitial) {
+      colors.push(color);
     };
 
     col.style.backgroundColor = color;
@@ -30,6 +42,8 @@ function setRandomColors() {
     setElementColor(colTitle, color);
     setElementColor(colBtn, color);
   });
+
+  updateHash(colors);
 };
 
 // changing color of column elements depending on the column color
@@ -54,7 +68,27 @@ document.addEventListener('click', (e) => {
     const el = target.tagName.toLowerCase() === 'i' ? target : target.children[0];
     el.classList.toggle('fa-lock-open');
     el.classList.toggle('fa-lock');
+  } else if (target.classList.contains('col__title')) {
+    copyToClipboard(target.textContent);
   };
 });
 
-setRandomColors();
+// Refresh hash by refreshing colors
+function updateHash(colors = []) {
+  document.location.hash = colors.map(color => color.substring(1)).join('-');
+};
+
+// We can get color from hash
+function getColorsFromHash() {
+  if (document.location.hash.length > 1) {
+    return document.location.hash.substring(1).split('-').map(color => `#${color}`);
+  }
+  return [];
+};
+
+// Copy color
+function copyToClipboard(text) {
+  return navigator.clipboard.writeText(text)
+};
+
+setRandomColors(true);
