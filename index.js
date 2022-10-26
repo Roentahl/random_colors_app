@@ -68,8 +68,14 @@ document.addEventListener('click', (e) => {
     const el = target.tagName.toLowerCase() === 'i' ? target : target.children[0];
     el.classList.toggle('fa-lock-open');
     el.classList.toggle('fa-lock');
+
+    el.classList.contains('fa-lock') 
+      ? showAndHideModal(document.querySelector('.modal__block')) 
+      : showAndHideModal(document.querySelector('.modal__unblock'));
+
   } else if (target.classList.contains('col__title')) {
     copyToClipboard(target.textContent);
+    showAndHideModal(document.querySelector('.modal__copy'));
   };
 });
 
@@ -89,6 +95,11 @@ function getColorsFromHash() {
 // Copy color
 function copyToClipboard(text) {
   return navigator.clipboard.writeText(text)
+};
+
+function showAndHideModal(modal) {
+  modal.classList.add('open');
+  setTimeout(() => modal.classList.remove('open'), 2000);
 };
 
 setRandomColors(true);

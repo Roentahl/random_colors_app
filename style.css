@@ -6,9 +6,11 @@
 }
 
 body {
+  position: relative;
   display: flex;
   height: 100vh;
   font-family: 'Roboto', sans-serif;
+  overflow: hidden;
 }
 
 .col {
@@ -43,4 +45,20 @@ body {
 .col__btn:hover {
   background-color: rgba(0,0,0, .3);
   cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  left: 50%;
+  bottom: 10%;
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 20px 2px #000;
+  transform: translate(-50%, 500px);
+  transition: transform .3s ease-in-out;
+}
+
+.open {
+  transform: translate(-50%, 0);
 }
